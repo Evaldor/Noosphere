@@ -9,6 +9,4 @@
     virtualenv venv 
     venv\Scripts\activate.bat
 
-    pip install pandasgui
-
-    pip install duckdb --upgrade
+    python main.py
