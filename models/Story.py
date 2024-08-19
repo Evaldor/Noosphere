@@ -2,9 +2,9 @@ class Story:
 
     # история состоит из последовательных связанных предложений
 
-    def __init__(self, uuid):
+    def __init__(self, id):
         self._subjects = list()
-        self._uuid = uuid
+        self._id = id
 
     def tell(self):
         
@@ -16,4 +16,4 @@ class Story:
         return r
 
     def uuid(self):
-        return self._uuid
+        return self._id
