@@ -17,10 +17,15 @@ for p in tribe:
     while (i > 0):
         se_id = uuid.uuid4()
         se = models.sentence.Sentence(random.choice(list(tribe.keys())), "приветствовал", random.choice(list(tribe.keys())), se_id)
-        st.add_sentence(se)
+        st.sentences.append(se)
         i = i - 1
 
-    tribe[p].add_story(st)
+    tribe[p].stories.append(st)
 
+r = ''
 for p in tribe:
-    print(tribe[p].tell_random())
+    print(tribe[p].name)
+    for st in tribe[p].stories:
+        for se in st.sentences:
+            print(str(se.subject)+' '+se.action+' '+str(se.object)+'.')
+
