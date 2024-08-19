@@ -11,10 +11,12 @@ actions = helpers.actions_generator.seed()
 
 for p in tribe:
 
-    st_id = uuid.uuid4()
-    st = models.story.Story(st_id)
+    st_id = uuid.uuid4() 
+    '''  TODO генерить несколько историй '''
+    st = models.story.Story(st_id) 
 
-    i = 100
+    i = 100 
+    ''' сколько предложений в каждой истории TODO рандомайз '''
     while (i > 0):
         se_id = uuid.uuid4()
         se = models.sentence.Sentence(random.choice(list(tribe.keys())), random.choice(list(actions.keys())), random.choice(list(tribe.keys())), se_id)
