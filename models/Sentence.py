@@ -10,7 +10,7 @@ class Sentence:
         self._id = id            # идентификатор предложения
 
     def tell(self):
-        return self._subject +' '+self._action +' '+self._object+'.'
+        return str(self._subject) +' '+self._action +' '+str(self._object)+'.'
     
     def id(self):
         return self._id

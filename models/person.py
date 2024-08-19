@@ -19,3 +19,6 @@ class Person:
 
     def name(self):
         return self._name
+
+    def add_story(self,story):
+        self._stories.append(story)
