@@ -4,17 +4,17 @@ namespace BrocaZone.models;
 
 public class Sentence
 {
-    public Sentence(string subject, Action action, string obj, string id)
+    public Sentence(int subjectId, Action action, int objectId, Guid id)
     {
         Id = id;
-        Subject = subject;
+        SubjectId = subjectId;
         Action = action;
-        Object = obj;
+        ObjectId = objectId;
     }
 
-    public string Id { get; set; }
-    public string Subject { get; set; }
+    public Guid Id { get; set; }
+    public int SubjectId { get; set; }
     public Action Action { get; set; }
-    public string Object{ get; set; }
+    public int ObjectId{ get; set; }
 
 }

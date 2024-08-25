@@ -30,21 +30,36 @@ public static class BrocaZone
     //Метод, сообщающий, что ант услышал конкретную историю от какого-то рассказчика.
     public static void ReceiveStory(DateTime dt,
                                     string worldCoordinates,
-                                    string iStoryTeller,
+                                    //string iStoryTeller,
+                                    int storyListenerId,
+                                    int storyTellerId,
                                     Story story)
     {
-
+        foreach(Ant ant in _ants){
+            if(ant.Id == storyListenerId){
+                ant.Stories.Add(story);
+            }
+        }
     }
 
     public static List<Story> GetStoriesAbout(int antId){
-        return new List<Story>();
+
+        List<Story> stories = new List<Story>();
+        foreach(Ant ant in _ants){
+            if(ant.Id == antId){
+                stories = ant.Stories;
+            }
+        }
+        return stories;
     }
+
     public static List<Story> GetAllStories(){
         return new List<Story>();
     }
+
     public static Story GetRandomStory(){
         
-        return new Story(Guid.NewGuid().ToString());
+        return new Story(Guid.NewGuid());
     }
 
 }

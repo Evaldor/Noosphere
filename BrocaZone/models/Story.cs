@@ -4,13 +4,13 @@ namespace BrocaZone.models;
 
 public class Story
 {
-    public Story(string id)
+    public Story(Guid id)
         {
             Id = id;
             Sentences = new List<Sentence>();
         }
 
-    public string Id { get; set; }
+    public Guid Id { get; set; }
 
     public List<Sentence> Sentences { get; set; }
 }
