@@ -5,9 +5,13 @@ namespace BrocaZone;
 
 public static class BrocaZone
 {
+    private static List<Tribe> _tribes = new List<Tribe>();
+    private static List<Ant> _ants = new List<Ant>();
     //Метод инициализации. Вызывается при создании анта, получает ссылку на анта
-    public static void Initialize(Person person){
 
+    public static void Initialize(Ant ant){
+        _ants.Add(ant);
+        _tribes.Add(ant.Tribe);
     }
 
     //Метод, сообщающий о произошедшем в мире событии. 
@@ -32,7 +36,7 @@ public static class BrocaZone
 
     }
 
-    public static List<Story> GetStoriesAbout(Person person){
+    public static List<Story> GetStoriesAbout(int antId){
         return new List<Story>();
     }
     public static List<Story> GetAllStories(){
