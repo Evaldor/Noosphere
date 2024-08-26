@@ -6,17 +6,18 @@ public class ActionBook
 
     public ActionBook()
     {
-        _actions.Add(new models.Action("поприветствовал", 0, 1));
-        _actions.Add(new models.Action("обнял", 1, 2));
-        _actions.Add(new models.Action("дал еды", 2, 3));
-        _actions.Add(new models.Action("пнул", -1, 4));
-        _actions.Add(new models.Action("отнял еду", -2, 5));
+        _actions.Add(new models.Action("возлюбил", 1, 0));
+        _actions.Add(new models.Action("ударил", -1, 1));
+        _actions.Add(new models.Action("одарил", 1, 2));
+        _actions.Add(new models.Action("пошел", 0, 3));
+        _actions.Add(new models.Action("взял", 0, 4));
     }
 
     public models.Action GetRandomAction()
     {
-        Random rnd = new Random();
-        return _actions[0];
+        Random random = new Random(); // Создаем объект класса Random
+        int number = random.Next(_actions.Count());
+        return _actions[number];
     }
 
 }

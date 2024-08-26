@@ -5,19 +5,19 @@ namespace BrocaZone.models;
 public class Ant
 {
 
-    public int Id {get; set;}
+    public Guid Id {get; set;}
     public string Name {get; set;}
     public DateTime DateOfBirth {get; set;}
-    public int ParentOneId {get; set;}
-    public int ParentTwoId {get; set;}
+    public Guid ParentOneId {get; set;}
+    public Guid ParentTwoId {get; set;}
     public Tribe Tribe {get; set;}
     public List<Story> Stories { get; set; }
 
-    public Ant(int Id,
+    public Ant(Guid Id,
                string Name,
                DateTime DateOfBirth,
-               int ParentOneId,
-               int ParentTwoId,
+               Guid ParentOneId,
+               Guid ParentTwoId,
                Tribe Tribe)
     {
         this.Id = Id;

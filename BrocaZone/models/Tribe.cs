@@ -4,10 +4,10 @@ namespace BrocaZone.models;
 
 public class Tribe
 {
-    public int Id {get; set;}
+    public Guid Id {get; set;}
     public string Name {get; set;}
 
-    public Tribe(int id, string name) {
+    public Tribe(Guid id, string name) {
         Id = id;
         Name = name;
     }
