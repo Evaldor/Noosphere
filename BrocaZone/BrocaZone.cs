@@ -1,10 +1,14 @@
 using System;
+using System.Text;
 using BrocaZone.models;
+using System.Linq;
 
 namespace BrocaZone;
 
 public static class BrocaZone
 {
+    public static Guid godId = new Guid("00000000-0000-0000-0000-000000000000"); //боженька для всех историй без начала
+    public static DateTime theBeginningOfTimes; //начало времён, для определения на сколько история старинная
     private static List<Tribe> _tribes = new List<Tribe>();
     private static List<Ant> _ants = new List<Ant>();
     //Метод инициализации. Вызывается при создании анта, получает ссылку на анта
@@ -53,6 +57,66 @@ public static class BrocaZone
             }
         }
         return stories;
+    }
+
+    public static string GetStory(Guid antId){
+
+        StringBuilder storyText = new StringBuilder();
+        Ant ant = _ants.FirstOrDefault(t => t.Id == antId);
+
+        storyText.Append("И молвил ");
+        storyText.Append(ant.Name+" ");
+        storyText.Append("из племени ");
+        storyText.Append(ant.Tribe.Name+" ");
+        storyText.Append(": ");
+        // давно это было, да вот только что, не так много времени прошло как 
+
+        Random random = new Random(); 
+        int number = random.Next(ant.Stories.Count());
+        Story story = ant.Stories[number];
+
+        int i = 0;
+        int storyLength = story.Sentences.Count();
+
+        foreach(Sentence sentence in story.Sentences){
+            if(i != 0){
+                storyText.Append("А затем ");
+            }
+            else if(i == storyLength){
+                storyText.Append("Ну и наконец ");
+            }
+            i++;
+
+            if(sentence.SubjectId == godId){
+                storyText.Append("Боженька ");
+            }
+            else if(sentence.SubjectId == ant.Id){
+                storyText.Append("Я ");
+            }
+            else
+            {
+                storyText.Append(_ants.FirstOrDefault(t => t.Id == sentence.SubjectId).Name+" ");
+            }
+
+            storyText.Append(sentence.Action.Name+" ");
+
+            if(sentence.ObjectId == godId){
+                storyText.Append("Боженьку ");
+            }
+            else if(sentence.ObjectId == ant.Id){
+                storyText.Append("Мене ");
+            }
+            else
+            {
+                storyText.Append(_ants.FirstOrDefault(t => t.Id == sentence.ObjectId).Name+".");
+            }
+            if(i == storyLength){
+                storyText.Append("Вот собственно и всё.");
+            }
+            
+        }
+
+        return storyText.ToString();
     }
 
     public static List<Story> GetAllStories(){

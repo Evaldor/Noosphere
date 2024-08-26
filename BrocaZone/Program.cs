@@ -1,34 +1,59 @@
 ﻿using System.Runtime.InteropServices;
 using BrocaZone.helpers;
 using BrocaZone.models;
-
+using bz = BrocaZone.BrocaZone;
 internal class Program
 {
+    
     private static void Main(string[] args)
     {
-        Guid godId = new Guid("00000000-0000-0000-0000-000000000000");
+        //генерим постоянные
         ActionBook actionBook = new ActionBook();
-        Tribe tribe = new Tribe(new Guid("025ffeae-5659-4b5f-9c17-12faf7556b5a"),"Дреговичи");
-        bool isMale = true;
-        Ant ant = new Ant(new Guid("8ee5d001-73f2-42ff-9d52-c4291388f28f"),
-                          NameGenerator.GetFullName(isMale),
-                          DateTime.Now,
-                          godId,
-                          godId,
-                          tribe);
+        bz.theBeginningOfTimes = DateTime.Now;
 
-        BrocaZone.BrocaZone.Initialize(ant);
+        //генерим N племен
+        List<Tribe> pregenTribes = WorldGenerator.GenerateTribes(1);
 
+        //генерим N антов
+        List<Ant> pregenAnts = WorldGenerator.GenerateAnts(1);
         
-        Story story = new Story(Guid.NewGuid(),godId);
-        Sentence sentence = new Sentence(godId,
-                                         actionBook.GetRandomAction(),
-                                         new Guid("8ee5d001-73f2-42ff-9d52-c4291388f28f"),
+        //добавляем антов в BrocaZone
+        foreach (Ant ant in pregenAnts)
+        {
+            Random rnd= new Random(); 
+            int num = rnd.Next(pregenTribes.Count());
+            ant.Tribe = pregenTribes[num];
+            bz.Initialize(ant);
+        };
+
+        //добавляем истории фазы мифа
+        foreach (Ant ant in pregenAnts)
+        {
+            Story story = new Story(Guid.NewGuid(),bz.godId);
+
+            Sentence sentence = new Sentence(bz.godId,
+                                         actionBook._actions[5],
+                                         ant.Id,
                                          Guid.NewGuid());
-        story.Sentences.Add(sentence);
+            story.Sentences.Add(sentence);
 
-        BrocaZone.BrocaZone.ReceiveStory(DateTime.Now,"на завалинке",new Guid("8ee5d001-73f2-42ff-9d52-c4291388f28f"),godId,story);
-
+            bz.ReceiveStory(DateTime.Now,
+                            "в астрале",
+                            ant.Id,
+                            bz.godId,
+                            story);
+        }
+        
+        //тестдрайв
+        Random random = new Random(); 
+        int number = random.Next(pregenAnts.Count());
+        string storyText = bz.GetStory(pregenAnts[number].Id);
+        Console.WriteLine(storyText);
+        
+        
+        /*
+        
+  
         List<Story> stories = BrocaZone.BrocaZone.GetStoriesAbout(new Guid("8ee5d001-73f2-42ff-9d52-c4291388f28f"));
 
         foreach (Story storyItem in stories)
@@ -37,5 +62,6 @@ internal class Program
                 Console.WriteLine(sentenceItem.SubjectId.ToString()+" "+sentenceItem.Action.Name+" "+sentenceItem.ObjectId.ToString());
             }
         }
+        */
     }
 }
