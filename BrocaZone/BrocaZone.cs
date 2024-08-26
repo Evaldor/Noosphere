@@ -101,10 +101,10 @@ public static class BrocaZone
             storyText.Append(sentence.Action.Name+" ");
 
             if(sentence.ObjectId == godId){
-                storyText.Append("Боженьку ");
+                storyText.Append("Боженьку. ");
             }
             else if(sentence.ObjectId == ant.Id){
-                storyText.Append("Мене ");
+                storyText.Append("Мене. ");
             }
             else
             {
